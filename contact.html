@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us – 2048 Math Game</title>
+  <meta name="description" content="Have questions, feature suggestions, or feedback about the 2048 Math Game? Get in touch directly with our team." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://2048mathgame.github.io/contact" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:        #0f0f1a;
+      --bg2:       #16162a;
+      --bg3:       #1e1e35;
+      --surface:   #252540;
+      --gold:      #f5a623;
+      --orange:    #f96f2e;
+      --cream:     #fef9f0;
+      --text:      #e8e8f5;
+      --text-dim:  #9999bb;
+      --border:    rgba(255,255,255,.07);
+      --radius:    14px;
+      --radius-sm: 8px;
+      --transition: .18s ease;
+    }
+
+    /* ─── RESET & BASE ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding-bottom: 60px;
+    }
+    a { color: var(--gold); text-decoration: none; transition: color var(--transition); }
+    a:hover { text-decoration: underline; color: var(--orange); }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────── */
+    h1, h2, h3 { font-family: 'Nunito', sans-serif; color: var(--cream); margin-bottom: 1rem; }
+    h1 { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 900; text-align: center; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.5rem; font-weight: 800; margin-top: 1rem; margin-bottom: 1.5rem; text-align: center; color: var(--text-dim); }
+    p { color: var(--text-dim); margin-bottom: 1.5rem; font-size: 1.05rem; }
+
+    /* ─── LAYOUT ─────────────────────────────────────────── */
+    .container { max-width: 750px; margin: 0 auto; padding: 0 24px; }
+    header { height: 64px; border-bottom: 1px solid var(--border); background: rgba(15,15,26,.92); }
+    
+    .content-wrapper {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 50px;
+      margin-top: 40px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.45);
+    }
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* ─── DIRECT CONTACT BOX ─────────────────────────────── */
+    .contact-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      text-align: center;
+      margin-top: 2rem;
+    }
+    .contact-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    .email-link {
+      display: inline-block;
+      font-family: 'Nunito', sans-serif;
+      font-size: clamp(1.2rem, 3.5vw, 1.7rem);
+      font-weight: 900;
+      color: var(--gold);
+      background: rgba(245,166,35,0.08);
+      padding: 12px 24px;
+      border-radius: 30px;
+      border: 1px dashed rgba(245,166,35,0.3);
+      margin-top: 10px;
+      word-break: break-all;
+    }
+    .email-link:hover {
+      background: rgba(245,166,35,0.15);
+      border-color: var(--gold);
+      color: var(--orange);
+      text-decoration: none;
+    }
+    .notice {
+      font-size: 0.88rem;
+      color: var(--slate);
+      margin-top: 20px;
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      .content-wrapper { padding: 30px 20px; margin-top: 20px; }
+      .contact-box { padding: 24px 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="site-header" role="banner"></header>
+
+<main class="container">
+  <div class="content-wrapper">
+    <a href="/" class="back-home">← Back to Game</a>
+    
+    <h1>Get in Touch</h1>
+    <h2>Have feedback, a bug report, or feature request?</h2>
+
+    <p>We are constantly seeking ways to improve the gameplay engine and accessibility features of the <strong>2048 Math Game</strong>. Whether you found a visual glitch, reached a record-shattering score you want to share, or represent an educational portal looking to feature our framework, our lines are open.</p>
+    
+    <p>Drop us a message directly via email and our team will get back to you as soon as possible.</p>
+
+    <div class="contact-box">
+      <div class="contact-icon">✉️</div>
+      <h3>Direct Email Support</h3>
+      <a href="mailto:meraalshah447@gmail.com" class="email-link">meraalshah447@gmail.com</a>
+      <div class="notice">We strive to review and reply to all legitimate game feedback inquiries within 24–48 hours.</div>
+    </div>
+  </div>
+</main>
+
+<footer id="site-footer" role="contentinfo"></footer>
+<script src="js/header.js"></script>
+<script src="js/footer.js"></script>
+</body>
+</html>
