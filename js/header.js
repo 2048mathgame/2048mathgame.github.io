@@ -1,4 +1,3 @@
-<script>
 (function renderHeader() {
   const nav = [
     { label: 'How to Play', href: '/#how-to-play' },
@@ -18,7 +17,6 @@
           <span>2048 Math Game</span>
         </a>
         <div class="nav-links" id="nav-links" role="list">${links}</div>
-        <a class="btn-play-now" href="#game-anchor" onclick="scrollToGame()">Play Free</a>
         <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
@@ -31,4 +29,3 @@
     this.setAttribute('aria-expanded', open);
   });
 })();
-</script>
