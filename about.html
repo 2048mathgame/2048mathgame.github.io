@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us – 2048 Math Game</title>
+  <meta name="description" content="Meet Meeral, the CEO and founder of 2048 Math Game. Learn about our mission to combine mathematical thinking with engaging, unblocked puzzle gameplay." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://2048mathgame.github.io/about" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:        #0f0f1a;
+      --bg2:       #16162a;
+      --bg3:       #1e1e35;
+      --surface:   #252540;
+      --gold:      #f5a623;
+      --orange:    #f96f2e;
+      --cream:     #fef9f0;
+      --text:      #e8e8f5;
+      --text-dim:  #9999bb;
+      --border:    rgba(255,255,255,.07);
+      --radius:    14px;
+      --transition: .18s ease;
+    }
+
+    /* ─── RESET & BASE ───────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      padding-bottom: 60px;
+    }
+    a { color: var(--gold); text-decoration: none; transition: color var(--transition); }
+    a:hover { text-decoration: underline; color: var(--orange); }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────── */
+    h1, h2, h3 { font-family: 'Nunito', sans-serif; color: var(--cream); margin-bottom: 1rem; }
+    h1 { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 900; text-align: center; margin-bottom: 0.5rem; }
+    h2 { font-size: 1.8rem; font-weight: 800; margin-top: 2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+    h3 { font-size: 1.3rem; font-weight: 700; margin-top: 1.5rem; }
+    p, li { color: var(--text-dim); margin-bottom: 1.2rem; font-size: 1.05rem; }
+    ul { margin-left: 24px; margin-bottom: 1.5rem; list-style-type: square; }
+    li { margin-bottom: 0.5rem; color: var(--text-dim); }
+
+    /* ─── LAYOUT ─────────────────────────────────────────── */
+    .container { max-width: 850px; margin: 0 auto; padding: 0 24px; }
+    header { height: 64px; border-bottom: 1px solid var(--border); background: rgba(15,15,26,.92); }
+    
+    .content-wrapper {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 50px;
+      margin-top: 40px;
+      box-shadow: 0 8px 32px rgba(0,0,0,.45);
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 2.5rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+    }
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 24px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    /* ─── TEAM CARD ──────────────────────────────────────── */
+    .profile-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .profile-avatar {
+      width: 64px;
+      height: 64px;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(245,166,35,0.3);
+      flex-shrink: 0;
+    }
+    .profile-info h3 { margin: 0; font-size: 1.4rem; font-weight: 800; }
+    .profile-info p { margin: 4px 0 0; font-size: 0.9rem; color: var(--gold); font-family: 'Nunito', sans-serif; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    @media (max-width: 600px) {
+      .content-wrapper { padding: 28px 20px; margin-top: 20px; }
+      .profile-card { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<header id="site-header" role="banner"></header>
+
+<main class="container">
+  <div class="content-wrapper">
+    <a href="/" class="back-home">← Back to Game</a>
+    
+    <h1>About Our Game</h1>
+    <div class="subtitle">Merging Fun with Exponential Logic</div>
+
+    <p>Welcome to the ultimate digital playground for number enthusiasts and strategic puzzle fans. <strong>2048 Math Game</strong> is a clean, hyper-responsive, and unblocked version of the beloved sliding tile puzzle, built to offer a distraction-free experience directly inside your web browser.</p>
+    
+    <p>While the traditional gameplay keeps players hooked for hours, our platform emphasizes the underlying mathematical landscape. Every shift, merge, and double-up highlights exponential growth and binary patterns, making it a powerful mental exercise for players of all ages.</p>
+
+    <h2>Our Mission</h2>
+    <p>We believe that educational tools are most effective when they are genuinely fun. Our mission is to keep the mind sharp by delivering flawless web experiences that challenge logical pathways, reward strategic foresight, and enhance spatial reasoning skills through gaming.</p>
+
+    <h2>Why Choose Our Version?</h2>
+    <ul>
+      <li><strong>Completely Unblocked:</strong> Access and play seamlessly from home, work, or educational networks.</li>
+      <li><strong>Built-in Safety Net:</strong> Use our integrated single-step Undo feature to salvage tight game states and refine your approach.</li>
+      <li><strong>Responsive & Adaptable:</strong> Experience snappy keyboard inputs on desktops or fluid touch swiping on tablets and mobile devices.</li>
+    </ul>
+
+    <h2>Meet the Founder</h2>
+    <p>This project was brought to life out of a passion for clean web utility tools and educational gaming resources.</p>
+
+    <div class="profile-card">
+      <div class="profile-avatar">M</div>
+      <div class="profile-info">
+        <h3>Meeral</h3>
+        <p>CEO & Founder</p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer id="site-footer" role="contentinfo"></footer>
+<script src="js/header.js"></script>
+<script src="js/footer.js"></script>
+</body>
+</html>
