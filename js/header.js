@@ -1,9 +1,9 @@
 (function renderHeader() {
   const nav = [
-    { label: 'How to Play', href: '#how-to-play' },
-    { label: 'Math Benefits', href: '#math-benefits' },
-    { label: 'Strategies', href: '#strategies' },
-    { label: 'FAQ', href: '#faq' },
+    { label: 'How to Play', href: '/#how-to-play' },
+    { label: 'Math Benefits', href: '/#math-benefits' },
+    { label: 'Strategies', href: '/#strategies' },
+    { label: 'FAQ', href: '/#faq' },
   ];
   const links = nav.map(n =>
     `<a href="${n.href}">${n.label}</a>`
@@ -16,11 +16,7 @@
           <div class="logo-tile" aria-hidden="true">2⁰</div>
           <span>2048 Math Game</span>
         </a>
-        <div class="nav-links" id="nav-links" role="list">${links}</div>
-        <a class="btn-play-now" href="#game-anchor" onclick="scrollToGame()">Play Free</a>
-        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+        <div class="nav-links" id="nav-links" role="list">${links}</div>        
       </nav>
     </div>`;
 
