@@ -28,7 +28,7 @@
           </ul>
         </div>
         <div class="footer-col">
-          <h4>About</h4>
+          <h4>Info</h4>
           <ul>
             <li><a href="/about">About</a></li>
             <li><a href="/privacy">Privacy Policy</a></li>
