@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2048 Math Game – Play the Classic Sliding Tile Puzzle Online Free</title>
+  <meta name="description" content="Play 2048 Math Game online free! Slide tiles, merge numbers, and reach the 2048 tile. The addictive number puzzle that sharpens math skills and logical thinking." />
+  <meta name="keywords" content="2048 math game, 2048 game, number puzzle, sliding tile puzzle, math puzzle game, 2048 online, brain game, number merge game" />
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="2048 Math Game" />
+  <link rel="canonical" href="https://2048mathgame.github.io/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="2048 Math Game – Play Free Online" />
+  <meta property="og:description" content="The classic 2048 sliding number puzzle. Merge tiles, build your score, and reach 2048!" />
+  <meta property="og:url" content="https://2048mathgame.github.io/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://2048mathgame.github.io/og-image.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="2048 Math Game – Play Free Online" />
+  <meta name="twitter:description" content="Slide tiles, merge numbers, reach 2048. Play the addictive math puzzle game free!" />
+
+  <!-- Schema Markup -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://2048mathgame.github.io/#website",
+        "url": "https://2048mathgame.github.io/",
+        "name": "2048 Math Game",
+        "description": "Play the classic 2048 sliding tile number puzzle game online for free.",
+        "publisher": { "@id": "https://2048mathgame.github.io/#organization" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://2048mathgame.github.io/#organization",
+        "name": "2048 Math Game",
+        "url": "https://2048mathgame.github.io/"
+      },
+      {
+        "@type": "VideoGame",
+        "name": "2048 Math Game",
+        "url": "https://2048mathgame.github.io/",
+        "description": "A sliding tile number puzzle where you merge matching numbers to reach the 2048 tile.",
+        "genre": ["Puzzle", "Math", "Educational"],
+        "gamePlatform": "Web Browser",
+        "applicationCategory": "Game",
+        "operatingSystem": "Any",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is the 2048 Math Game?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "2048 is a sliding tile puzzle game where you combine numbered tiles on a 4×4 grid. Merge matching numbers to create larger values and reach the coveted 2048 tile."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do you play 2048?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Use arrow keys or swipe to slide all tiles on the board. When two tiles with the same number collide, they merge into one tile with double the value. Reach 2048 to win!"
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does 2048 help with math skills?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! 2048 reinforces powers of 2, mental arithmetic, and pattern recognition — all key components of mathematical thinking."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is 2048 Math Game free to play?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. 2048 Math Game is 100% free to play directly in your browser with no download or registration required."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────────────────── */
+    :root {
+      --bg:        #0f0f1a;
+      --bg2:       #16162a;
+      --bg3:       #1e1e35;
+      --surface:   #252540;
+      --gold:      #f5a623;
+      --orange:    #f96f2e;
+      --cream:     #fef9f0;
+      --slate:     #8888aa;
+      --text:      #e8e8f5;
+      --text-dim:  #9999bb;
+      --border:    rgba(255,255,255,.07);
+      --radius:    14px;
+      --radius-sm: 8px;
+      --shadow:    0 8px 32px rgba(0,0,0,.45);
+      --transition: .18s ease;
+
+      /* Tile colours */
+      --t2:    #eee4da; --t2c:    #776e65;
+      --t4:    #ede0c8; --t4c:    #776e65;
+      --t8:    #f2b179; --t8c:    #fff;
+      --t16:   #f59563; --t16c:   #fff;
+      --t32:   #f67c5f; --t32c:   #fff;
+      --t64:   #f65e3b; --t64c:   #fff;
+      --t128:  #edcf72; --t128c:  #fff;
+      --t256:  #edcc61; --t256c:  #fff;
+      --t512:  #edc850; --t512c:  #fff;
+      --t1024: #edc53f; --t1024c: #fff;
+      --t2048: #edc22e; --t2048c: #fff;
+      --thigh: #3c3a32; --thighc: #fff;
+    }
+
+    /* ─── RESET ──────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+    ul, ol { list-style: none; }
+
+    /* ─── TYPOGRAPHY ─────────────────────────────────────── */
+    h1, h2, h3, h4 { font-family: 'Nunito', sans-serif; line-height: 1.2; }
+    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; }
+    h2 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 800; }
+    h3 { font-size: clamp(1.1rem, 2vw, 1.4rem); font-weight: 700; }
+    p  { color: var(--text-dim); }
+
+    /* ─── LAYOUT HELPERS ─────────────────────────────────── */
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+    .section    { padding: 80px 0; }
+    .section--dark  { background: var(--bg2); }
+    .section--darker{ background: var(--bg3); }
+    .section-label {
+      display: inline-block;
+      font-family: 'Nunito', sans-serif;
+      font-size: .75rem; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(245,166,35,.12);
+      padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 16px;
+    }
+    .section-head { margin-bottom: 48px; }
+    .section-head p { margin-top: 12px; max-width: 560px; font-size: 1.05rem; }
+
+    /* ─── HEADER ─────────────────────────────────────────── */
+    #site-header {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(15,15,26,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .header-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; gap: 24px;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Nunito', sans-serif; font-weight: 900; font-size: 1.4rem;
+      color: var(--cream); text-decoration: none;
+    }
+    .logo-tile {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      display: flex; align-items: center; justify-content: center;
+      font-size: .9rem; font-weight: 900; color: #fff;
+      box-shadow: 0 3px 12px rgba(245,166,35,.4);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 28px;
+      font-size: .9rem; font-weight: 600;
+    }
+    .nav-links a { color: var(--text-dim); transition: color var(--transition); }
+    .nav-links a:hover { color: var(--gold); text-decoration: none; }
+    .btn-play-now {
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      color: #fff; font-family: 'Nunito', sans-serif;
+      font-weight: 800; font-size: .9rem;
+      padding: 9px 20px; border-radius: 30px;
+      border: none; cursor: pointer; transition: opacity var(--transition);
+      text-decoration: none; display: inline-block;
+    }
+    .btn-play-now:hover { opacity: .88; text-decoration: none; }
+    .nav-toggle {
+      display: none; background: none; border: none;
+      cursor: pointer; color: var(--text); padding: 4px;
+    }
+    .nav-toggle span {
+      display: block; width: 24px; height: 2px;
+      background: currentColor; margin: 5px 0;
+      transition: all .2s;
+    }
+
+    /* ─── HERO ───────────────────────────────────────────── */
+    #hero {
+      background: radial-gradient(ellipse at 70% 30%, rgba(245,166,35,.08) 0%, transparent 65%),
+                  radial-gradient(ellipse at 20% 80%, rgba(249,111,46,.06) 0%, transparent 60%),
+                  var(--bg);
+      padding: 72px 0 60px;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 56px; align-items: center;
+    }
+    .hero-text .eyebrow {
+      font-family: 'Nunito', sans-serif; font-size: .8rem;
+      font-weight: 800; letter-spacing: .14em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 16px;
+    }
+    .hero-text h1 { color: var(--cream); margin-bottom: 18px; }
+    .hero-text h1 span { color: var(--gold); }
+    .hero-text p { font-size: 1.1rem; max-width: 440px; margin-bottom: 32px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      color: #fff; font-family: 'Nunito', sans-serif;
+      font-weight: 800; font-size: 1rem;
+      padding: 13px 28px; border-radius: 30px;
+      border: none; cursor: pointer; transition: transform .15s, box-shadow .15s;
+      box-shadow: 0 4px 20px rgba(245,166,35,.35);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(245,166,35,.45); }
+    .btn-secondary {
+      background: transparent; color: var(--text);
+      border: 1.5px solid var(--border);
+      font-family: 'Nunito', sans-serif; font-weight: 700; font-size: 1rem;
+      padding: 12px 24px; border-radius: 30px; cursor: pointer;
+      transition: border-color var(--transition), color var(--transition);
+    }
+    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 40px;
+    }
+    .stat-item .num {
+      font-family: 'Nunito', sans-serif; font-size: 1.6rem;
+      font-weight: 900; color: var(--gold);
+    }
+    .stat-item .lbl {
+      font-size: .78rem; color: var(--text-dim); margin-top: 2px;
+    }
+
+    /* ─── GAME BOARD ─────────────────────────────────────── */
+    .game-wrap {
+      background: var(--surface);
+      border-radius: 20px; padding: 24px;
+      box-shadow: var(--shadow), 0 0 0 1px var(--border);
+      min-width: 320px;
+    }
+    .game-header-row {
+      display: flex; justify-content: space-between;
+      align-items: flex-start; margin-bottom: 16px; gap: 12px;
+    }
+    .game-title-block { font-family: 'Nunito', sans-serif; }
+    .game-title-block .g-title {
+      font-size: 2.4rem; font-weight: 900; color: var(--gold);
+      line-height: 1;
+    }
+    .game-title-block .g-sub {
+      font-size: .75rem; color: var(--text-dim); margin-top: 3px;
+    }
+    .score-blocks { display: flex; gap: 8px; }
+    .score-box {
+      background: var(--bg3); border-radius: var(--radius-sm);
+      padding: 8px 14px; text-align: center; min-width: 72px;
+    }
+    .score-box .s-label {
+      font-size: .65rem; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--text-dim);
+      font-weight: 700;
+    }
+    .score-box .s-val {
+      font-family: 'Nunito', sans-serif; font-size: 1.2rem;
+      font-weight: 900; color: var(--cream); margin-top: 2px;
+    }
+    .game-controls {
+      display: flex; gap: 8px; margin-bottom: 14px;
+      justify-content: flex-end;
+    }
+    .ctrl-btn {
+      background: var(--bg3); border: 1px solid var(--border);
+      color: var(--text); font-family: 'Nunito', sans-serif;
+      font-size: .8rem; font-weight: 700;
+      padding: 7px 14px; border-radius: var(--radius-sm);
+      cursor: pointer; transition: background var(--transition);
+    }
+    .ctrl-btn:hover { background: var(--surface); }
+    .ctrl-btn.undo-btn { font-size: 1rem; padding: 7px 12px; }
+
+    /* Board */
+    .board-container {
+      position: relative;
+      background: #bbada0;
+      border-radius: var(--radius);
+      padding: 10px; width: 340px; height: 340px;
+      user-select: none; touch-action: none;
+    }
+    .board-grid {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      grid-template-rows: repeat(4,1fr);
+      gap: 10px;
+      width: 100%; height: 100%;
+    }
+    .cell-bg {
+      background: rgba(238,228,218,.35);
+      border-radius: var(--radius-sm);
+    }
+    .tiles-layer {
+      position: absolute; inset: 10px;
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      grid-template-rows: repeat(4,1fr);
+      gap: 10px;
+    }
+    .tile {
+      border-radius: var(--radius-sm);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Nunito', sans-serif; font-weight: 900;
+      font-size: 1.6rem; line-height: 1;
+      animation: tileAppear .12s ease-out;
+      transition: none;
+    }
+    .tile.merged { animation: tileMerge .14s ease-out; }
+    @keyframes tileAppear {
+      from { transform: scale(.5); opacity: 0; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    @keyframes tileMerge {
+      0%   { transform: scale(1); }
+      50%  { transform: scale(1.18); }
+      100% { transform: scale(1); }
+    }
+
+    /* Tile values */
+    .tile[data-val="2"]    { background:var(--t2);    color:var(--t2c);    font-size:1.7rem; }
+    .tile[data-val="4"]    { background:var(--t4);    color:var(--t4c);    font-size:1.7rem; }
+    .tile[data-val="8"]    { background:var(--t8);    color:var(--t8c);    font-size:1.7rem; }
+    .tile[data-val="16"]   { background:var(--t16);   color:var(--t16c);   font-size:1.5rem; }
+    .tile[data-val="32"]   { background:var(--t32);   color:var(--t32c);   font-size:1.5rem; }
+    .tile[data-val="64"]   { background:var(--t64);   color:var(--t64c);   font-size:1.5rem; }
+    .tile[data-val="128"]  { background:var(--t128);  color:var(--t128c);  font-size:1.25rem; }
+    .tile[data-val="256"]  { background:var(--t256);  color:var(--t256c);  font-size:1.25rem; }
+    .tile[data-val="512"]  { background:var(--t512);  color:var(--t512c);  font-size:1.25rem; }
+    .tile[data-val="1024"] { background:var(--t1024); color:var(--t1024c); font-size:1.05rem; }
+    .tile[data-val="2048"] { background:var(--t2048); color:var(--t2048c); font-size:1.05rem;
+                              box-shadow:0 0 28px rgba(237,194,46,.7); }
+    .tile[data-val]        { }
+    .tile[data-val]:not([data-val="2"]):not([data-val="4"]):not([data-val="8"]):not([data-val="16"]):not([data-val="32"]):not([data-val="64"]):not([data-val="128"]):not([data-val="256"]):not([data-val="512"]):not([data-val="1024"]):not([data-val="2048"]) {
+      background: var(--thigh); color: var(--thighc); font-size: .95rem;
+    }
+
+    /* Overlay */
+    .board-overlay {
+      position: absolute; inset: 0;
+      background: rgba(238,228,218,.73);
+      backdrop-filter: blur(4px);
+      border-radius: var(--radius);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 14px; z-index: 10;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    .board-overlay.visible { opacity: 1; pointer-events: all; }
+    .overlay-msg {
+      font-family: 'Nunito', sans-serif;
+      font-size: 2rem; font-weight: 900; color: #776e65;
+    }
+    .overlay-sub { font-size: .95rem; color: #9b8e80; text-align: center; padding: 0 20px; }
+    .overlay-btn {
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      color: #fff; font-family: 'Nunito', sans-serif;
+      font-weight: 800; font-size: 1rem;
+      padding: 12px 28px; border-radius: 30px;
+      border: none; cursor: pointer;
+    }
+
+    /* Swipe hint */
+    .swipe-hint {
+      text-align: center; margin-top: 10px;
+      font-size: .75rem; color: var(--text-dim);
+    }
+    .swipe-hint span { margin: 0 4px; }
+
+    /* ─── HOW TO PLAY ────────────────────────────────────── */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 24px;
+    }
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+      position: relative;
+      transition: border-color var(--transition);
+    }
+    .step-card:hover { border-color: rgba(245,166,35,.4); }
+    .step-num {
+      font-family: 'Nunito', sans-serif; font-size: 3rem;
+      font-weight: 900; color: rgba(245,166,35,.15);
+      line-height: 1; margin-bottom: 12px;
+    }
+    .step-icon {
+      font-size: 2rem; margin-bottom: 12px;
+    }
+    .step-card h3 { color: var(--cream); margin-bottom: 8px; }
+
+    /* ─── MATH TILES SHOWCASE ────────────────────────────── */
+    .tiles-showcase {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      justify-content: center;
+    }
+    .demo-tile {
+      width: 80px; height: 80px; border-radius: 10px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      font-family: 'Nunito', sans-serif; font-weight: 900;
+    }
+    .demo-tile .dv { font-size: 1.4rem; line-height: 1; }
+    .demo-tile .dp { font-size: .6rem; opacity: .75; margin-top: 3px; }
+
+    /* ─── FEATURES ───────────────────────────────────────── */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: transform var(--transition), border-color var(--transition);
+    }
+    .feature-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(245,166,35,.3);
+    }
+    .feature-icon {
+      width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+      background: rgba(245,166,35,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .feature-card h3 { color: var(--cream); margin-bottom: 6px; }
+
+    /* ─── MATH BENEFITS ──────────────────────────────────── */
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px 60px;
+    }
+    .benefit-item { display: flex; gap: 16px; }
+    .benefit-icon {
+      width: 44px; height: 44px; border-radius: 50%; flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(245,166,35,.2), rgba(249,111,46,.15));
+      border: 1.5px solid rgba(245,166,35,.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .benefit-item h3 { color: var(--cream); margin-bottom: 6px; }
+
+    /* ─── STRATEGIES ─────────────────────────────────────── */
+    .strategies-list { display: flex; flex-direction: column; gap: 20px; }
+    .strategy-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px; align-items: center;
+    }
+    .strategy-badge {
+      background: linear-gradient(135deg, var(--gold), var(--orange));
+      color: #fff; font-family: 'Nunito', sans-serif;
+      font-weight: 900; font-size: .85rem;
+      width: 44px; height: 44px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .strategy-item h3 { color: var(--cream); margin-bottom: 4px; }
+
+    /* ─── FAQ ────────────────────────────────────────────── */
+    .faq-list { display: flex; flex-direction: column; gap: 16px; max-width: 760px; margin: 0 auto; }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .faq-q {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 20px 24px; cursor: pointer;
+      font-family: 'Nunito', sans-serif; font-weight: 700;
+      font-size: 1rem; color: var(--cream);
+      gap: 12px;
+    }
+    .faq-q .chevron {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: rgba(245,166,35,.12);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: .8rem;
+      transition: transform .2s;
+    }
+    .faq-item.open .chevron { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .28s ease, padding .28s ease;
+      padding: 0 24px;
+    }
+    .faq-item.open .faq-a {
+      max-height: 300px; padding: 0 24px 20px;
+    }
+
+    /* ─── KEYBOARD GUIDE ─────────────────────────────────── */
+    .kbd-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .kbd-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .kbd {
+      background: var(--bg3);
+      border: 1px solid rgba(255,255,255,.18);
+      border-bottom: 3px solid rgba(255,255,255,.1);
+      border-radius: 8px;
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: 1.3rem; color: var(--cream);
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .kbd-item p { color: var(--text-dim); font-size: .9rem; }
+
+    /* ─── CTA BANNER ─────────────────────────────────────── */
+    .cta-band {
+      background: linear-gradient(135deg, rgba(245,166,35,.12), rgba(249,111,46,.08));
+      border: 1px solid rgba(245,166,35,.2);
+      border-radius: 24px;
+      padding: 60px 40px; text-align: center;
+      margin: 0 24px;
+    }
+    .cta-band h2 { color: var(--cream); margin-bottom: 16px; }
+    .cta-band p { max-width: 500px; margin: 0 auto 32px; font-size: 1.05rem; }
+
+    /* ─── FOOTER ─────────────────────────────────────────── */
+    #site-footer {
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+      padding: 48px 0 28px;
+    }
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px; margin-bottom: 40px;
+    }
+    .footer-brand .logo { margin-bottom: 14px; font-size: 1.2rem; }
+    .footer-brand p { font-size: .88rem; max-width: 240px; }
+    .footer-col h4 {
+      font-family: 'Nunito', sans-serif; font-weight: 800;
+      font-size: .85rem; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--text-dim); margin-bottom: 16px;
+    }
+    .footer-col li + li { margin-top: 10px; }
+    .footer-col a {
+      font-size: .9rem; color: var(--text-dim);
+      transition: color var(--transition);
+    }
+    .footer-col a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 16px;
+      font-size: .82rem; color: var(--text-dim);
+      flex-wrap: wrap;
+    }
+
+    /* ─── SCORE POP ──────────────────────────────────────── */
+    .score-pop {
+      position: fixed; pointer-events: none; z-index: 500;
+      font-family: 'Nunito', sans-serif; font-weight: 900;
+      font-size: 1.4rem; color: var(--gold);
+      text-shadow: 0 2px 8px rgba(0,0,0,.5);
+      animation: scorePop .9s ease-out forwards;
+    }
+    @keyframes scorePop {
+      0%   { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-60px); opacity: 0; }
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+      .hero-text p { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero-stats  { justify-content: center; }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+      .benefits-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: rgba(15,15,26,.97);
+        padding: 24px; gap: 20px;
+        border-bottom: 1px solid var(--border);
+      }
+      .section { padding: 56px 0; }
+      .board-container { width: 300px; height: 300px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 420px) {
+      .board-container { width: 280px; height: 280px; }
+      .game-wrap { padding: 16px; min-width: unset; width: 100%; }
+      .cta-band { padding: 40px 24px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .001s !important; transition-duration: .001s !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════ HEADER ═══════════════════════════════ -->
+<header id="site-header" role="banner"></header>
+
+<!-- ═══════════════════════════════ MAIN ════════════════════════════════ -->
+<main>
+
+  <!-- §1 HERO + GAME -->
+  <section id="hero" aria-label="Play 2048 Math Game">
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- Left: copy -->
+        <div class="hero-text">
+          <div class="eyebrow">Free Online Number Puzzle</div>
+          <h1>The Ultimate<br /><span>2048 Math Game</span></h1>
+          <p>Slide tiles, merge matching numbers, and work your way to the legendary <strong style="color:var(--gold)">2048 tile</strong>. The addictive math puzzle that challenges your mind one move at a time.</p>
+          <div class="hero-actions">
+            <button class="btn-primary" onclick="scrollToGame()">▶ Play Now</button>
+            <button class="btn-secondary" onclick="document.getElementById('how-to-play').scrollIntoView({behavior:'smooth'})">How to Play</button>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item"><div class="num">4×4</div><div class="lbl">Grid Size</div></div>
+            <div class="stat-item"><div class="num">2048</div><div class="lbl">Target Tile</div></div>
+            <div class="stat-item"><div class="num">∞</div><div class="lbl">Replayable</div></div>
+          </div>
+        </div>
+
+        <!-- Right: live game -->
+        <div id="game-anchor">
+          <div class="game-wrap" role="application" aria-label="2048 game board">
+            <div class="game-header-row">
+              <div class="game-title-block">
+                <div class="g-title">2048</div>
+                <div class="g-sub">Merge tiles to win!</div>
+              </div>
+              <div class="score-blocks">
+                <div class="score-box">
+                  <div class="s-label">Score</div>
+                  <div class="s-val" id="score-display">0</div>
+                </div>
+                <div class="score-box">
+                  <div class="s-label">Best</div>
+                  <div class="s-val" id="best-display">0</div>
+                </div>
+              </div>
+            </div>
+            <div class="game-controls">
+              <button class="ctrl-btn undo-btn" id="undo-btn" title="Undo last move">↩</button>
+              <button class="ctrl-btn" id="new-btn">New Game</button>
+            </div>
+            <div class="board-container" id="board-container" tabindex="0" aria-label="Game grid, use arrow keys to play">
+              <div class="board-grid" id="cell-layer">
+                <!-- 16 background cells -->
+              </div>
+              <div class="tiles-layer" id="tile-layer"></div>
+              <div class="board-overlay" id="board-overlay">
+                <div class="overlay-msg" id="overlay-msg">Game Over</div>
+                <div class="overlay-sub" id="overlay-sub">No more moves available. Try again!</div>
+                <button class="overlay-btn" id="overlay-btn">Play Again</button>
+              </div>
+            </div>
+            <div class="swipe-hint">
+              <span>⬆</span><span>⬇</span><span>⬅</span><span>➡</span>
+              Arrow keys or swipe to move
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- §2 HOW TO PLAY -->
+  <section id="how-to-play" class="section section--dark" aria-labelledby="htp-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Getting Started</span>
+        <h2 id="htp-title">How to Play 2048 Math Game</h2>
+        <p>Master the 2048 sliding tile puzzle in four simple steps. No downloads, no sign-ups — just open the game and go.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">01</div>
+          <div class="step-icon">🎯</div>
+          <h3>Start the Grid</h3>
+          <p>The game begins with two tiles — each showing the number 2 or 4 — randomly placed on a 4×4 grid. Your mission: combine them.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">02</div>
+          <div class="step-icon">↔️</div>
+          <h3>Slide to Move</h3>
+          <p>Press any arrow key (or swipe on mobile) to slide all tiles on the board simultaneously in that direction.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">03</div>
+          <div class="step-icon">✖️</div>
+          <h3>Merge & Multiply</h3>
+          <p>When two tiles with the same number collide, they merge into one — doubling the value. 2+2=4, 4+4=8, and so on.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num">04</div>
+          <div class="step-icon">🏆</div>
+          <h3>Reach 2048</h3>
+          <p>Keep merging tiles until you create a tile showing 2048. That's your victory! But you can keep playing beyond to chase higher scores.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §3 TILES SHOWCASE -->
+  <section id="tile-values" class="section" aria-labelledby="tv-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Powers of Two</span>
+        <h2 id="tv-title">The Math Behind Every Tile</h2>
+        <p>Every tile in 2048 is a power of 2. From 2¹ all the way to 2¹¹ = 2048, each merge is a lesson in exponential growth and binary math.</p>
+      </div>
+      <div class="tiles-showcase" role="list" aria-label="Tile values from 2 to 2048">
+        <!-- Rendered by JS -->
+      </div>
+      <div style="margin-top:36px; max-width:660px;">
+        <h3 style="color:var(--cream); margin-bottom:10px;">Why Powers of 2?</h3>
+        <p>The 2048 math game is built entirely on binary doubling — the same mathematical principle that underlies all digital computing. Each tile is exactly 2ⁿ for some integer n. When you merge two equal tiles, you're performing a bit-shift: moving one step up the exponential ladder. Recognising this pattern is one of the first strategic insights players develop.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- §4 FEATURES -->
+  <section id="features" class="section section--dark" aria-labelledby="feat-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Game Features</span>
+        <h2 id="feat-title">Everything You Need in One Game</h2>
+        <p>2048 Math Game packs a smooth, distraction-free experience — built for focus, built for fun.</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <div>
+            <h3>Play Instantly Online</h3>
+            <p>No downloads, no accounts, no waiting. Open the page and you're playing within seconds on any device.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <div>
+            <h3>Mobile & Touch Ready</h3>
+            <p>Swipe gestures work perfectly on smartphones and tablets. The responsive layout adapts to any screen size.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">↩️</div>
+          <div>
+            <h3>Undo Last Move</h3>
+            <p>Made a mistake? Hit the undo button to revert your last move and try a different strategy.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🏅</div>
+          <div>
+            <h3>Best Score Tracking</h3>
+            <p>Your personal best score is saved locally so you always know your record — and have something to beat.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">♾️</div>
+          <div>
+            <h3>Endless Replayability</h3>
+            <p>Reached 2048? Keep going! The game continues so you can chase 4096, 8192, and beyond.</p>
+          </div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⌨️</div>
+          <div>
+            <h3>Keyboard Controls</h3>
+            <p>Full keyboard support with arrow keys for desktop players who love a snappy, precise experience.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §5 MATH BENEFITS -->
+  <section id="math-benefits" class="section section--darker" aria-labelledby="mb-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Why It's a Math Game</span>
+        <h2 id="mb-title">How 2048 Sharpens Your Mathematical Mind</h2>
+        <p>Behind the colourful tiles lies a surprisingly rich mathematical landscape. Here's what your brain is actually doing when you play.</p>
+      </div>
+      <div class="benefits-grid">
+        <div class="benefit-item">
+          <div class="benefit-icon">🔢</div>
+          <div>
+            <h3>Mental Arithmetic</h3>
+            <p>Constantly evaluating which tiles can merge — and what their combined value will be — keeps your mental arithmetic sharp and fast.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">📈</div>
+          <div>
+            <h3>Exponential Thinking</h3>
+            <p>Every move reinforces the concept of exponential growth. Players intuitively grasp why 1024+1024=2048 without needing a calculator.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🧩</div>
+          <div>
+            <h3>Pattern Recognition</h3>
+            <p>Spotting which tile configurations lead to merges — several moves in advance — builds advanced pattern-recognition skills.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🔮</div>
+          <div>
+            <h3>Spatial Reasoning</h3>
+            <p>Planning how tiles will shift and stack across the 4×4 grid exercises spatial reasoning — a cornerstone of mathematical ability.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">💡</div>
+          <div>
+            <h3>Strategic Planning</h3>
+            <p>Each swipe has cascading consequences. Thinking multiple moves ahead mirrors the logical foresight used in algebra and problem-solving.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-icon">🎓</div>
+          <div>
+            <h3>Binary Number Basics</h3>
+            <p>Since all tile values are powers of 2, playing 2048 is a hands-on introduction to binary — the language of all computers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §6 STRATEGIES -->
+  <section id="strategies" class="section section--dark" aria-labelledby="strat-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Expert Tips</span>
+        <h2 id="strat-title">Proven Strategies to Win 2048</h2>
+        <p>Reaching the 2048 tile is satisfying — but it requires method. These battle-tested strategies will dramatically improve your win rate.</p>
+      </div>
+      <div class="strategies-list">
+        <div class="strategy-item">
+          <div class="strategy-badge">01</div>
+          <div>
+            <h3>Corner Anchoring</h3>
+            <p>Pick one corner — bottom-left works great — and always keep your highest-value tile there. Never swipe in the direction that would move it away from that corner.</p>
+          </div>
+        </div>
+        <div class="strategy-item">
+          <div class="strategy-badge">02</div>
+          <div>
+            <h3>Build a Snake Path</h3>
+            <p>Arrange tiles in a descending snake pattern from your corner tile outward: 1024 → 512 → 256 → 128 → 64… This maximises merge opportunities in sequence.</p>
+          </div>
+        </div>
+        <div class="strategy-item">
+          <div class="strategy-badge">03</div>
+          <div>
+            <h3>Prioritise Two Directions</h3>
+            <p>Focus 90% of your moves on just two directions — e.g. left and down — to keep the board predictable. Only use the others when absolutely necessary.</p>
+          </div>
+        </div>
+        <div class="strategy-item">
+          <div class="strategy-badge">04</div>
+          <div>
+            <h3>Keep the Board Sparse</h3>
+            <p>Avoid filling rows that lock in low tiles. Aim to keep the grid as open as possible so new tiles have room to appear without blocking your merges.</p>
+          </div>
+        </div>
+        <div class="strategy-item">
+          <div class="strategy-badge">05</div>
+          <div>
+            <h3>Merge the Lowest First</h3>
+            <p>When you have multiple merge options, start with the smallest tiles. Clearing low-value pairs frees space and sets up chain reactions for bigger tiles.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §7 KEYBOARD CONTROLS -->
+  <section id="controls" class="section section--darker" aria-labelledby="ctrl-title">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-label">Controls Reference</span>
+        <h2 id="ctrl-title">Keyboard & Touch Controls</h2>
+        <p>2048 Math Game supports arrow keys on desktop and swipe gestures on mobile — making it equally satisfying on any device.</p>
+      </div>
+      <div class="kbd-grid">
+        <div class="kbd-item">
+          <div class="kbd">↑</div>
+          <div><strong style="color:var(--cream)">Up Arrow</strong><p>Slide all tiles upward, merging matching pairs at the top</p></div>
+        </div>
+        <div class="kbd-item">
+          <div class="kbd">↓</div>
+          <div><strong style="color:var(--cream)">Down Arrow</strong><p>Slide all tiles downward, merging matching pairs at the bottom</p></div>
+        </div>
+        <div class="kbd-item">
+          <div class="kbd">←</div>
+          <div><strong style="color:var(--cream)">Left Arrow</strong><p>Slide all tiles left, merging matching pairs on the left side</p></div>
+        </div>
+        <div class="kbd-item">
+          <div class="kbd">→</div>
+          <div><strong style="color:var(--cream)">Right Arrow</strong><p>Slide all tiles right, merging matching pairs on the right side</p></div>
+        </div>
+        <div class="kbd-item">
+          <div class="kbd" style="font-size:.65rem;">Swipe</div>
+          <div><strong style="color:var(--cream)">Touch / Swipe</strong><p>On mobile, swipe in any direction to move tiles — same result as arrow keys</p></div>
+        </div>
+        <div class="kbd-item">
+          <div class="kbd" style="font-size:.8rem;">↩</div>
+          <div><strong style="color:var(--cream)">Undo Button</strong><p>Revert your last move. Use sparingly — it's your safety net, not a habit!</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §8 FAQ -->
+  <section id="faq" class="section section--dark" aria-labelledby="faq-title">
+    <div class="container">
+      <div class="section-head" style="text-align:center">
+        <span class="section-label">Common Questions</span>
+        <h2 id="faq-title">Frequently Asked Questions</h2>
+      </div>
+      <div class="faq-list" role="list">
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0" role="button" aria-expanded="false">
+            What is the 2048 Math Game?
+            <span class="chevron" aria-hidden="true">▾</span>
+          </div>
+          <div class="faq-a">
+            <p>2048 is a single-player sliding tile puzzle game played on a 4×4 grid. You combine numbered tiles — always powers of 2 — by sliding them in four directions. When two tiles with the same number collide, they merge into one tile with twice the value. The goal is to create a tile displaying the number 2048.</p>
+          </div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0" role="button" aria-expanded="false">
+            Is 2048 solvable every time?
+            <span class="chevron" aria-hidden="true">▾</span>
+          </div>
+          <div class="faq-a">
+            <p>Not every game is winnable. The random placement of new tiles means some games can be mathematically unwinnable from a certain point. However, using consistent strategies — like corner anchoring and snake patterns — dramatically increases your probability of reaching 2048.</p>
+          </div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0" role="button" aria-expanded="false">
+            Can I play 2048 on my phone?
+            <span class="chevron" aria-hidden="true">▾</span>
+          </div>
+          <div class="faq-a">
+            <p>Yes! 2048 Math Game is fully optimised for mobile browsers. Simply open the site on any smartphone or tablet and use swipe gestures to play. No app download required — it runs entirely in your browser.</p>
+          </div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0" role="button" aria-expanded="false">
+            What happens after I reach 2048?
+            <span class="chevron" aria-hidden="true">▾</span>
+          </div>
+          <div class="faq-a">
+            <p>Reaching 2048 triggers a congratulations message, but the game continues! You can keep playing to chase higher tiles like 4096 and 8192. There is no hard upper limit — the game ends only when no moves remain and the board is full.</p>
+          </div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0" role="button" aria-expanded="false">
+            How is 2048 a math game?
+            <span class="chevron" aria-hidden="true">▾</span>
+          </div>
+          <div class="faq-a">
+            <p>2048 is built entirely on powers of 2 — the binary number system that forms the foundation of all computing. Playing it reinforces mental arithmetic, exponential growth, pattern recognition, and strategic planning. It's used by educators as a fun, engaging tool to introduce students to binary mathematics and logical thinking.</p>
+          </div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0" role="button" aria-expanded="false">
+            Is there a time limit?
+            <span class="chevron" aria-hidden="true">▾</span>
+          </div>
+          <div class="faq-a">
+            <p>No — 2048 Math Game is completely untimed. Take as long as you need on each move. This is intentional: the game rewards careful planning over speed, making it a genuinely strategic puzzle rather than a reflex test.</p>
+          </div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0" role="button" aria-expanded="false">
+            Does the game save my progress?
+            <span class="chevron" aria-hidden="true">▾</span>
+          </div>
+          <div class="faq-a">
+            <p>Your best score is saved locally in your browser so it persists between sessions. The current game state is not saved — if you close or refresh the page, the game will restart. We recommend finishing your game in one sitting!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- §9 CTA -->
+  <section class="section" aria-label="Call to action">
+    <div class="container">
+      <div class="cta-band">
+        <span class="section-label">Ready to Play?</span>
+        <h2>Challenge Your Brain with 2048 Math Game</h2>
+        <p>Join millions of players worldwide. No download, no registration — just pure number-merging fun in your browser.</p>
+        <button class="btn-primary" onclick="scrollToGame(); window.scrollTo({top:0, behavior:'smooth'})">
+          ▶ Start Playing Now — It's Free!
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ═══════════════════════════════ FOOTER ═══════════════════════════════ -->
+<footer id="site-footer" role="contentinfo"></footer>
+
+<!-- ─── HEADER COMPONENT ─────────────────────────────────────────────── -->
+<script>
+(function renderHeader() {
+  const nav = [
+    { label: 'How to Play', href: '#how-to-play' },
+    { label: 'Math Benefits', href: '#math-benefits' },
+    { label: 'Strategies', href: '#strategies' },
+    { label: 'FAQ', href: '#faq' },
+  ];
+  const links = nav.map(n =>
+    `<a href="${n.href}">${n.label}</a>`
+  ).join('');
+
+  document.getElementById('site-header').innerHTML = `
+    <div class="container">
+      <nav class="header-inner" aria-label="Main navigation">
+        <a class="logo" href="/" aria-label="2048 Math Game Home">
+          <div class="logo-tile" aria-hidden="true">2⁰</div>
+          <span>2048 Math Game</span>
+        </a>
+        <div class="nav-links" id="nav-links" role="list">${links}</div>
+        <a class="btn-play-now" href="#game-anchor" onclick="scrollToGame()">Play Free</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>`;
+
+  document.getElementById('nav-toggle').addEventListener('click', function() {
+    const nl = document.getElementById('nav-links');
+    const open = nl.classList.toggle('open');
+    this.setAttribute('aria-expanded', open);
+  });
+})();
+</script>
+
+<!-- ─── FOOTER COMPONENT ──────────────────────────────────────────────── -->
+<script>
+(function renderFooter() {
+  document.getElementById('site-footer').innerHTML = `
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <a class="logo" href="/" aria-label="2048 Math Game Home">
+            <div class="logo-tile" aria-hidden="true">2⁰</div>
+            <span>2048 Math Game</span>
+          </a>
+          <p>The classic sliding tile number puzzle — free to play in your browser. Merge tiles, build your score, reach 2048.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Game</h4>
+          <ul>
+            <li><a href="#hero">Play Now</a></li>
+            <li><a href="#how-to-play">How to Play</a></li>
+            <li><a href="#strategies">Strategies</a></li>
+            <li><a href="#controls">Controls</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Learn</h4>
+          <ul>
+            <li><a href="#tile-values">Math Behind Tiles</a></li>
+            <li><a href="#math-benefits">Math Benefits</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>About</h4>
+          <ul>
+            <li><a href="#">About the Game</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© ${new Date().getFullYear()} 2048 Math Game · <a href="https://2048mathgame.github.io/">2048mathgame.github.io</a></span>
+        <span>Free browser game · No download required · Mobile friendly</span>
+      </div>
+    </div>`;
+})();
+</script>
+
+<!-- ─── GAME ENGINE ────────────────────────────────────────────────────── -->
+<script>
+(function Game2048() {
+  'use strict';
+
+  /* DOM refs */
+  const boardEl     = document.getElementById('board-container');
+  const tileLayer   = document.getElementById('tile-layer');
+  const cellLayer   = document.getElementById('cell-layer');
+  const scoreEl     = document.getElementById('score-display');
+  const bestEl      = document.getElementById('best-display');
+  const overlay     = document.getElementById('board-overlay');
+  const overlayMsg  = document.getElementById('overlay-msg');
+  const overlaySub  = document.getElementById('overlay-sub');
+  const overlayBtn  = document.getElementById('overlay-btn');
+  const newBtn      = document.getElementById('new-btn');
+  const undoBtn     = document.getElementById('undo-btn');
+
+  /* State */
+  let grid, score, best, prevGrid, prevScore, won;
+
+  /* ── Init ── */
+  function init() {
+    // Build background cells
+    cellLayer.innerHTML = '';
+    for (let i = 0; i < 16; i++) {
+      const c = document.createElement('div');
+      c.className = 'cell-bg';
+      cellLayer.appendChild(c);
+    }
+    best = parseInt(localStorage.getItem('2048_best') || '0', 10);
+    bestEl.textContent = best;
+    newGame();
+  }
+
+  function newGame() {
+    grid = Array.from({ length: 4 }, () => Array(4).fill(0));
+    score = 0;
+    won = false;
+    prevGrid = null; prevScore = 0;
+    addRandomTile();
+    addRandomTile();
+    updateScore(0);
+    renderBoard();
+    overlay.classList.remove('visible');
+  }
+
+  /* ── Tiles ── */
+  function addRandomTile() {
+    const empty = [];
+    for (let r = 0; r < 4; r++)
+      for (let c = 0; c < 4; c++)
+        if (!grid[r][c]) empty.push([r, c]);
+    if (!empty.length) return;
+    const [r, c] = empty[Math.floor(Math.random() * empty.length)];
+    grid[r][c] = Math.random() < .9 ? 2 : 4;
+  }
+
+  /* ── Render ── */
+  function renderBoard(mergedCells) {
+    tileLayer.innerHTML = '';
+    for (let r = 0; r < 4; r++) {
+      for (let c = 0; c < 4; c++) {
+        if (!grid[r][c]) continue;
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        tile.setAttribute('data-val', grid[r][c]);
+        tile.textContent = grid[r][c];
+        tile.style.gridRow    = r + 1;
+        tile.style.gridColumn = c + 1;
+        if (mergedCells && mergedCells.some(([mr,mc]) => mr===r && mc===c))
+          tile.classList.add('merged');
+        tileLayer.appendChild(tile);
+      }
+    }
+  }
+
+  /* ── Move logic ── */
+  function slideRow(row) {
+    // Remove zeros
+    let r = row.filter(v => v !== 0);
+    const merged = [];
+    for (let i = 0; i < r.length - 1; i++) {
+      if (r[i] === r[i+1]) {
+        r[i] *= 2;
+        const gained = r[i];
+        r.splice(i+1, 1);
+        merged.push(i);
+        updateScore(gained);
+        if (r[i] === 2048 && !won) {
+          won = true;
+          setTimeout(showWin, 200);
+        }
+      }
+    }
+    while (r.length < 4) r.push(0);
+    return { row: r, merged };
+  }
+
+  function move(dir) {
+    // Save state for undo
+    prevGrid  = grid.map(r => [...r]);
+    prevScore = score;
+
+    let moved = false;
+    const mergedCells = [];
+
+    if (dir === 'left' || dir === 'right') {
+      for (let r = 0; r < 4; r++) {
+        let row = dir === 'right' ? [...grid[r]].reverse() : [...grid[r]];
+        const { row: newRow, merged } = slideRow(row);
+        if (dir === 'right') newRow.reverse();
+        merged.forEach(mi => {
+          const col = dir === 'right' ? 3 - mi : mi;
+          mergedCells.push([r, col]);
+        });
+        if (grid[r].join() !== newRow.join()) moved = true;
+        grid[r] = newRow;
+      }
+    } else {
+      for (let c = 0; c < 4; c++) {
+        let col = [grid[0][c], grid[1][c], grid[2][c], grid[3][c]];
+        if (dir === 'down') col.reverse();
+        const { row: newCol, merged } = slideRow(col);
+        if (dir === 'down') newCol.reverse();
+        merged.forEach(mi => {
+          const row = dir === 'down' ? 3 - mi : mi;
+          mergedCells.push([row, c]);
+        });
+        for (let r = 0; r < 4; r++) {
+          if (grid[r][c] !== newCol[r]) moved = true;
+          grid[r][c] = newCol[r];
+        }
+      }
+    }
+
+    if (!moved) return;
+    addRandomTile();
+    renderBoard(mergedCells);
+    if (isGameOver()) setTimeout(showGameOver, 300);
+  }
+
+  function isGameOver() {
+    for (let r = 0; r < 4; r++)
+      for (let c = 0; c < 4; c++) {
+        if (!grid[r][c]) return false;
+        if (c < 3 && grid[r][c] === grid[r][c+1]) return false;
+        if (r < 3 && grid[r][c] === grid[r+1][c]) return false;
+      }
+    return true;
+  }
+
+  /* ── UI updates ── */
+  function updateScore(gained) {
+    score += gained;
+    scoreEl.textContent = score;
+    if (score > best) {
+      best = score;
+      bestEl.textContent = best;
+      localStorage.setItem('2048_best', best);
+    }
+    if (gained > 0) spawnScorePop(gained);
+  }
+
+  function spawnScorePop(n) {
+    const pop = document.createElement('div');
+    pop.className = 'score-pop';
+    pop.textContent = '+' + n;
+    const rect = boardEl.getBoundingClientRect();
+    pop.style.left = (rect.left + rect.width / 2 - 20) + 'px';
+    pop.style.top  = (rect.top + rect.height / 2) + 'px';
+    document.body.appendChild(pop);
+    pop.addEventListener('animationend', () => pop.remove());
+  }
+
+  function showGameOver() {
+    overlayMsg.textContent = 'Game Over';
+    overlaySub.textContent = 'No more moves. Final score: ' + score;
+    overlayBtn.textContent = 'Play Again';
+    overlay.classList.add('visible');
+  }
+
+  function showWin() {
+    overlayMsg.textContent = '🎉 You Win!';
+    overlaySub.textContent = 'You reached 2048! Keep going for a higher score.';
+    overlayBtn.textContent = 'Keep Playing';
+    overlay.classList.add('visible');
+  }
+
+  /* ── Undo ── */
+  function undo() {
+    if (!prevGrid) return;
+    grid  = prevGrid.map(r => [...r]);
+    score = prevScore;
+    prevGrid = null;
+    scoreEl.textContent = score;
+    renderBoard();
+    overlay.classList.remove('visible');
+  }
+
+  /* ── Event listeners ── */
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    const map = { ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right' };
+    if (map[e.key]) { e.preventDefault(); move(map[e.key]); }
+  });
+
+  // Touch
+  let tx0, ty0;
+  boardEl.addEventListener('touchstart', e => {
+    tx0 = e.touches[0].clientX;
+    ty0 = e.touches[0].clientY;
+  }, { passive: true });
+  boardEl.addEventListener('touchend', e => {
+    if (tx0 === undefined) return;
+    const dx = e.changedTouches[0].clientX - tx0;
+    const dy = e.changedTouches[0].clientY - ty0;
+    if (Math.abs(dx) < 12 && Math.abs(dy) < 12) return;
+    if (Math.abs(dx) > Math.abs(dy)) move(dx > 0 ? 'right' : 'left');
+    else                              move(dy > 0 ? 'down'  : 'up');
+    tx0 = ty0 = undefined;
+  }, { passive: true });
+
+  newBtn.addEventListener('click', newGame);
+  overlayBtn.addEventListener('click', () => {
+    overlay.classList.remove('visible');
+    if (won) won = false; // allow keep playing
+    else newGame();
+  });
+  undoBtn.addEventListener('click', undo);
+
+  /* Boot */
+  init();
+})();
+
+/* ─── Scroll helper ────────────────────────────────────── */
+function scrollToGame() {
+  document.getElementById('game-anchor').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+/* ─── Tile showcase ──────────────────────────────────────── */
+(function buildTileShowcase() {
+  const vals = [2,4,8,16,32,64,128,256,512,1024,2048];
+  const powers = [1,2,3,4,5,6,7,8,9,10,11];
+  const showcase = document.querySelector('.tiles-showcase');
+  vals.forEach((v, i) => {
+    const tile = document.createElement('div');
+    tile.className = 'demo-tile';
+    tile.setAttribute('data-val', v);
+    tile.setAttribute('role', 'listitem');
+    tile.setAttribute('aria-label', `Tile value ${v} equals 2 to the power ${powers[i]}`);
+    tile.innerHTML = `<div class="dv">${v}</div><div class="dp">2<sup>${powers[i]}</sup></div>`;
+    showcase.appendChild(tile);
+  });
+})();
+
+/* ─── Demo tile colours (mirror .tile CSS) ──────────────── */
+(function styleDemoTiles() {
+  const map = {
+    2:    { bg:'#eee4da', c:'#776e65' },
+    4:    { bg:'#ede0c8', c:'#776e65' },
+    8:    { bg:'#f2b179', c:'#fff' },
+    16:   { bg:'#f59563', c:'#fff' },
+    32:   { bg:'#f67c5f', c:'#fff' },
+    64:   { bg:'#f65e3b', c:'#fff' },
+    128:  { bg:'#edcf72', c:'#fff' },
+    256:  { bg:'#edcc61', c:'#fff' },
+    512:  { bg:'#edc850', c:'#fff' },
+    1024: { bg:'#edc53f', c:'#fff' },
+    2048: { bg:'#edc22e', c:'#fff', shadow:'0 0 20px rgba(237,194,46,.6)' },
+  };
+  document.querySelectorAll('.demo-tile').forEach(el => {
+    const v = parseInt(el.getAttribute('data-val'), 10);
+    if (map[v]) {
+      el.style.background = map[v].bg;
+      el.style.color = map[v].c;
+      if (map[v].shadow) el.style.boxShadow = map[v].shadow;
+    }
+  });
+})();
+
+/* ─── FAQ accordion ──────────────────────────────────────── */
+document.querySelectorAll('.faq-q').forEach(q => {
+  function toggle() {
+    const item = q.parentElement;
+    const open = item.classList.toggle('open');
+    q.setAttribute('aria-expanded', open);
+  }
+  q.addEventListener('click', toggle);
+  q.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+});
+</script>
+
+</body>
+</html>
